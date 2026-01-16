@@ -341,13 +341,14 @@ def _pipeline_core_Virchow():
 
         output = model(image)  # size: 1 x 257 x 1280
 
-        class_token = output[:, 0]    # size: 1 x 1280
+        class_token = output[:, 0]  # size: 1 x 1280
         patch_tokens = output[:, 1:]  # size: 1 x 256 x 1280
 
         # concatenate class token and average pool of patch tokens
-        embedding = torch.cat([class_token, patch_tokens.mean(1)], dim=-1)  # size: 1 x 2560
+        embedding = torch.cat(
+            [class_token, patch_tokens.mean(1)], dim=-1
+        )  # size: 1 x 2560
         return embedding
-
 
     return transform, _predict, 224
 
@@ -396,21 +397,21 @@ def build_pipeline(
     return make_prediction
 
 
+Model = Literal[
+    "h-optimus-0",
+    "uni-2-h",
+    "uni-1",
+    "vgg",
+    "gigapath",
+    "plip",
+    "keep",
+    "virchow",
+    "random",
+]
+
+
 def get_pipeline(
-    model_name: (
-        Literal[
-            "h-optimus-0",
-            "uni-2-h",
-            "uni-1",
-            "vgg",
-            "gigapath",
-            "plip",
-            "keep",
-            "virchow",
-            "random",
-        ]
-        | str
-    ),
+    model_name: Model | str,
     dataloader: Literal["pytorch", "naive", "queue"] = "queue",
     batch_size: int | None = None,
 ) -> tuple[Pipeline, int]:

@@ -47,6 +47,7 @@ cbir_mm_fgw_eval_ot_mapping = "cbir_mm_fgw.run.eval_ot_mapping:main"
 cbir_mm_fgw_search = "cbir_mm_fgw.run.search:main"
 cbir_mm_fgw_train_fgw = "cbir_mm_fgw.run.train_fgw:main"
 cbir_mm_fgw_train_zscore_corr = "cbir_mm_fgw.run.train_zscore_corr:main"
+cbir_mm_fgw_setup_model_cache = "cbir_mm_fgw.run.setup_model_cache:main"
 
 [tool.hatch.build]
 exclude = ["/.vscode", "/.gitignore"]

@@ -5,9 +5,12 @@ import pathlib
 import huggingface_hub
 
 
-def model_directory():
+def model_directory(*, do_not_verify: bool = False) -> pathlib.Path:
     env_dir = os.environ.get("MODELS_CACHE", "models-cache")
     env_dir_p = pathlib.Path(env_dir).expanduser().resolve()
+    if do_not_verify:
+        return env_dir_p
+
     if not env_dir_p.is_dir():
         raise RuntimeError(
             f"Model cache directory does not exist: {env_dir_p}\n"
