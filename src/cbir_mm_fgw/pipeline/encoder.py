@@ -1,10 +1,11 @@
 import functools
+import pathlib
 from typing import Callable, Literal, Protocol
 
 import numpy as np
 import timm
 import torch
-from huggingface_hub import hf_hub_download
+from huggingface_hub import hf_hub_download, snapshot_download
 from torchvision import transforms
 from transformers import AutoModel
 
@@ -16,6 +17,30 @@ from ..plip import PLIP
 
 
 DEVICE = "cuda:0"  # if torch.cuda.is_available() else "cpu"
+
+
+def _ensure_hf_snapshot(
+    repo_id: str, revision: str, cache_dir: pathlib.Path, login: bool = False
+):
+    snapshot_path = cache_dir / "snapshot"
+
+    if snapshot_path.exists():
+        return snapshot_path
+
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    if login:
+        _login()
+
+    path = snapshot_download(
+        repo_id=repo_id,
+        revision=revision,
+        cache_dir=cache_dir,
+        local_dir=snapshot_path,
+        local_dir_use_symlinks=False,
+    )
+
+    return pathlib.Path(path)
 
 
 @functools.lru_cache()
@@ -95,34 +120,20 @@ def _pipeline_plip():
 
 @functools.lru_cache()
 def _pipeline_core_h_optimus_0():
-    cache = model_directory() / "h-optimus-0"
-    try:
-        cache.mkdir(exist_ok=False)
-        for f in [
-            "config.json",
-            "pytorch_model.bin",
-        ]:
-            hf_hub_download(
-                "bioptimus/H-optimus-0",
-                filename=f,
-                local_dir=cache,
-                revision="a35a7fb622d30f806b231a6aeb9a953aebb12d74",
-            )
-    except FileExistsError:
-        pass
+    snapshot = _ensure_hf_snapshot(
+        repo_id="bioptimus/H-optimus-0",
+        revision="a35a7fb622d30f806b231a6aeb9a953aebb12d74",
+        cache_dir=model_directory() / "h-optimus-0",
+        login=False,
+    )
 
-    # build model
     model = timm.create_model(
-        "hf-hub:bioptimus/H-optimus-0",
-        pretrained=False,  # state loaded later
+        "hf_hub:bioptimus/H-optimus-0",
+        pretrained=True,
+        cache_dir=snapshot,
         init_values=1e-5,
         dynamic_img_size=False,
-        cache_dir=cache,
     ).to(DEVICE)
-    model.load_state_dict(
-        torch.load(cache / "pytorch_model.bin", map_location=DEVICE),
-        strict=True,
-    )
 
     model.eval()
 
@@ -231,33 +242,19 @@ def _pipeline_core_uni_2_h():
 
 
 @functools.lru_cache()
-def _pipeline_core_gigapath():
-    cache = model_directory() / "giga-path"
-    try:
-        cache.mkdir(exist_ok=False)
-        _login()
-        for f in [
-            "config.json",
-            "pytorch_model.bin",
-        ]:
-            hf_hub_download(
-                "prov-gigapath/prov-gigapath",
-                filename=f,
-                local_dir=cache,
-                revision="eba85dd46097c3eedfcc2a3a9a930baecb6bcc19",
-            )
-    except FileExistsError:
-        pass
+def _pipeline_core_gigapath():  
+    snapshot = _ensure_hf_snapshot(
+        repo_id="prov-gigapath/prov-gigapath",
+        revision="eba85dd46097c3eedfcc2a3a9a930baecb6bcc19",
+        cache_dir=model_directory() / "giga-path",
+        login=False,
+    )
 
     model = timm.create_model(
         "hf_hub:prov-gigapath/prov-gigapath",
-        pretrained=False,
-        cache_dir=cache,
+        pretrained=True,
+        cache_dir=snapshot,
     ).to(DEVICE)
-    model.load_state_dict(
-        torch.load(cache / "pytorch_model.bin", map_location=DEVICE),
-        strict=True,
-    )
     transform = transforms.Compose(
         [
             # transforms.Resize(224),
@@ -297,35 +294,38 @@ def _pipeline_core_keep():
 
 @functools.lru_cache()
 def _pipeline_core_Virchow():
-    cache = model_directory() / "Virchow"
-    try:
-        cache.mkdir(exist_ok=False)
-        _login()
-        for f in [
-            "config.json",
-            "model.safetensors",
-            "pytorch_model.bin",
-        ]:
-            hf_hub_download(
-                "paige-ai/Virchow",
-                filename=f,
-                local_dir=cache,
-                revision="19eebc84ae33e79f1b2d866e6ff90ae50e522f9a",
-            )
-    except FileExistsError:
-        pass
+    snapshot = _ensure_hf_snapshot(
+        repo_id="paige-ai/Virchow",
+        revision="19eebc84ae33e79f1b2d866e6ff90ae50e522f9a",
+        cache_dir=model_directory() / "Virchow",
+        login=True,   # gated model
+    )
 
     model = timm.create_model(
         "hf_hub:paige-ai/Virchow",
         pretrained=False,
-        cache_dir=cache,
+        cache_dir=snapshot,
         mlp_layer=timm.layers.SwiGLUPacked,  # type: ignore
         act_layer=torch.nn.SiLU,
     ).to(DEVICE)
-    model.load_state_dict(
-        torch.load(cache / "pytorch_model.bin", map_location=DEVICE),
-        strict=True,
-    )
+
+    # ---- NOTE: Fix LayerScale naming mismatch (.gamma / .weight) ----
+
+    import safetensors.torch
+
+    state_dict = safetensors.torch.load_file(snapshot / "model.safetensors")
+    remapped = {}
+
+    for k, v in state_dict.items():
+        if ".ls1.gamma" in k:
+            k = k.replace(".ls1.gamma", ".ls1.weight")
+        if ".ls2.gamma" in k:
+            k = k.replace(".ls2.gamma", ".ls2.weight")
+        remapped[k] = v
+
+    missing, unexpected = model.load_state_dict(remapped, strict=True)
+
+    # ---------------------------------------
 
     transform = transforms.Compose(
         [
