@@ -1,0 +1,18 @@
+base_config:
+  ds_dir: /gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+  tiling_size_px: 224
+  n_samples_per_image: 1000
+  fold: train
+  cyclic: True
+  n_epochs: 200
+  lr_max: 1.0e-3
+  lr_min: 1.0e-6
+  random_pairing: False
+  arch: mlp-eye
+  rec_coef: 5.0e-1
+sweep:
+  - model: [uni-2-h, uni-1, gigapath, h-optimus-0, virchow]
+  - tiling_size_um:
+    - 50000.0
+    - 10000.0
+    - 5000.0
