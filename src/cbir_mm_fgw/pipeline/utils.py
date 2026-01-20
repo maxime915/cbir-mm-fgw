@@ -22,4 +22,4 @@ def model_directory(*, do_not_verify: bool = False) -> pathlib.Path:
 
 
 def _login():
-    huggingface_hub.login(os.environ.get("HUGGING_FACE_TOKEN", ""))
+    huggingface_hub.login(os.environ.get("HF_TOKEN", ""))
