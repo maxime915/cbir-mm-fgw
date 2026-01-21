@@ -73,7 +73,7 @@ def _match(
         idx = faiss.IndexFlatIP(tiles.shape[1])  # type:ignore
         idx.add(_normalized(tiles))  # type: ignore
     with profiler.profile("index/search"):
-        limit = min(limit, len(tiles))
+        limit = len(tiles) if limit == -1 else min(limit, len(tiles))
         distances, indices = idx.search(_normalized(patches), limit)  # type: ignore
 
     return 1.0 - distances, indices
