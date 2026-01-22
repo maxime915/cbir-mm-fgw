@@ -1,0 +1,119 @@
+----------------- Environment ------------------
+
+Currently Loaded Modules:
+  1) EasyBuild/2022a (S)   2) CUDA/11.7.0
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+------------------- Job info -------------------
+job_id             : 11975808
+jobname            : search
+queue              : gpu
+qos                : gpu
+account            : ariacpg
+submit dir         : /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw
+number of mpi tasks: 1 tasks
+OMP_NUM_THREADS    : 
+number of gpus     : 1
+Executable         : 
+------------------- Node list ------------------
+cna005
+---------------- Checking limits ---------------
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 1028129
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) 62914560
+open files                      (-n) 32768
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 1028129
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+--------------- Running the code ---------------
+This run started on: Wed Jan 21 08:39:48 CET 2026
++ source ./env.sh
+++ export IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+++ IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
++++ cat .env
++++ xargs
+++ export HUGGINGFACE_HUB_TOKEN=**REDACTED**
+++ HUGGINGFACE_HUB_TOKEN=**REDACTED**
++ /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/python3 /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/cbir_mm_fgw_search /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.runexp/search/2026-01-21--08-30-57-516907--+0100/search_no_corrector-17.yaml --runexp-no-dry-run
+starting
+len(pairs_)=11 (c.fold='val')
+using vgg with s_um=5000.0 corr=no-correction t_mode=overlap
+===== Warmup =====
+profiler["warmup-first"][0]=183.74976561730728
+{'tiling/coordinates': [0.3256723382510245],
+ 'tiling/embeddings': [180.77379231899977],
+ 'query/coordinates': [0.011259820312261581],
+ 'query/embeddings': [0.3370245690457523],
+ 'index/creation': [0.10942581295967102],
+ 'index/search': [0.17062706919386983]}
+warmup-all                    : 2.113e+02 (n=  2)
+warmup-first                  : 1.837e+02 (n=  1)
+Warmed up in 606.8211297988892s
+==== Inspect ====
+prediction               : 1.003e+02 +/- 1.099e+02 tot: 6.016e+02 (n=  6)
+prediction/conversion    : 6.699e-02 +/- 7.330e-02 tot: 4.019e-01 (n=  6)
+prediction/copy-from-gpu : 1.508e-03 +/- 2.257e-03 tot: 1.870e-01 (n=124)
+prediction/copy-to-gpu   : 1.803e-02 +/- 3.487e-03 tot: 2.236e+00 (n=124)
+prediction/model         : 6.555e-03 +/- 4.025e-02 tot: 8.129e-01 (n=124)
+prediction/sync          : 7.101e-02 +/- 8.424e-02 tot: 4.260e-01 (n=  6)
+preprocess-q             : 4.844e+00 +/- 1.468e+00 tot: 6.006e+02 (n=124)
+preprocess-q/crop-img    : 3.331e-03 +/- 8.924e-04 tot: 2.056e+02 (n=61730)
+preprocess-q/read-crop   : 2.401e-03 +/- 6.742e-04 tot: 1.482e+02 (n=61730)
+preprocess-q/transform   : 3.792e-03 +/- 1.344e-02 tot: 2.341e+02 (n=61730)
+==== Accuracy ====
+Done 11 queries in 2445.490035533905s
+top1,top3,top5,rank-q.95
+0.021604938271604937,0.06481481481481481,0.09259259259259259,2080.299999999998
+
+n-fail: 317; n-success: 7; n-all: 324
+mu[fail]: 72363.2832464271 px; s1[fail]: 32256.37515012736 pxmu[success]: 55460.720390554125 px; s1[success]: 29433.04849102551 pxmu[all]: 71998.10441929405 px; s1[all]: 32291.638566592872 px
+,0.0,0.01,0.05,0.1,0.25,0.5,0.75,0.9,0.95,0.99,1.0
+fail,4842.320518098735,10940.869240964561,22685.376318026938,28909.145497116915,46996.086017880254,71025.25526177291,95287.69142969095,116139.24385270322,127256.55719389208,137360.01759081555,151133.24797012736
+success,15179.643737584884,16574.946868168503,22156.159390502988,29132.675043421088,39509.87013265783,42170.62721847992,69222.50368500457,88640.2139161495,101025.11902931935,110933.04311985527,113410.02414248927
+all,4842.320518098735,11146.234311793836,22538.16253290439,28806.0458610999,46443.14846191414,70743.80347867007,95187.56973365093,116023.6404519692,126960.23818768586,137326.95795437088,151133.24797012736
+
+===== Timing =====
+request                       : 2.217e+02 +/- 1.985e+01 (n= 11)
+==== Inspect ====
+prediction               : 1.103e+02 +/- 1.130e+02 tot: 2.427e+03 (n= 22)
+prediction/conversion    : 6.591e-02 +/- 6.730e-02 tot: 1.450e+00 (n= 22)
+prediction/copy-from-gpu : 4.970e-05 +/- 5.942e-05 tot: 2.276e-02 (n=458)
+prediction/copy-to-gpu   : 1.763e-02 +/- 3.694e-03 tot: 8.074e+00 (n=458)
+prediction/model         : 3.119e-03 +/- 9.956e-03 tot: 1.428e+00 (n=458)
+prediction/sync          : 4.476e-02 +/- 4.987e-02 tot: 9.848e-01 (n= 22)
+preprocess-q             : 5.293e+00 +/- 1.866e+00 tot: 2.424e+03 (n=458)
+preprocess-q/crop-img    : 3.336e-03 +/- 7.235e-04 tot: 7.557e+02 (n=226500)
+preprocess-q/read-crop   : 2.509e-03 +/- 1.444e-03 tot: 5.684e+02 (n=226500)
+preprocess-q/transform   : 4.674e-03 +/- 1.497e-02 tot: 1.059e+03 (n=226500)
++ res=0
++ echo -n 'This run completed on: '
+This run completed on: + date
+Wed Jan 21 09:30:49 CET 2026
++ exit 0
+
+Resources Used
+
+Total Memory used                        - MEM              : 5.3GiB
+Total CPU Time                           - CPU_Time         : 00:10:56
+Execution Time                           - Wall_Time        : 00:01:22
+total programme cpu time                 - Total_CPU        : 01:03.610
+Total_CPU / CPU_Time  (%)                - ETA              : 9%
+Number of alloc CPU                      - NCPUS            : 8
+Number of Mobilized Resources per Job    - NCPUS_EQUIV_PJOB : 32
+Mobilized Resources x Execution Time     - R_Wall_Time      : 00:43:44
+CPU_Time / R_Wall_Time (%)               - ALPHA            : 25%
+Energy (Joules)                                             : unknown
+

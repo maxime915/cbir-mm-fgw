@@ -1,0 +1,55 @@
+----------------- Environment ------------------
+
+Currently Loaded Modules:
+  1) EasyBuild/2022a (S)   2) CUDA/11.7.0
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+------------------- Job info -------------------
+job_id             : 11956021
+jobname            : train_zsc
+queue              : gpu
+qos                : gpu
+account            : ariacpg
+submit dir         : /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw
+number of mpi tasks: 1 tasks
+OMP_NUM_THREADS    : 
+number of gpus     : 1
+Executable         : 
+------------------- Node list ------------------
+cna037
+---------------- Checking limits ---------------
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 1028129
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) 62914560
+open files                      (-n) 32768
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 1028129
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+--------------- Running the code ---------------
+This run started on: Tue Jan 20 19:12:09 CET 2026
++ source ./env.sh
+++ export IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+++ IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
++++ cat .env
++++ xargs
+++ export HUGGINGFACE_HUB_TOKEN=**REDACTED**
+++ HUGGINGFACE_HUB_TOKEN=**REDACTED**
++ /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/python3 /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/cbir_mm_fgw_train_zscore_corr /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.runexp/train_zsc/2026-01-20--15-41-20-937608--+0100/train_zscore_all-8.yaml --runexp-no-dry-run
++ res=0
++ echo -n 'This run completed on: '
+This run completed on: + date
+Tue Jan 20 19:18:43 CET 2026
++ exit 0

@@ -1,0 +1,9 @@
+base_config:
+  corr_tag: no-correction
+  ds_dir: /gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+  fold: val
+  model: uni-1
+  no_multi_modal: false
+  tile_size_px: 224
+  tile_size_um: 10000.0
+  tiling_mode: overlap

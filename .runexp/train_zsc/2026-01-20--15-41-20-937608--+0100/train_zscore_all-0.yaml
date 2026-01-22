@@ -1,0 +1,7 @@
+base_config:
+  ds_dir: /gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+  fold: train
+  model: uni-2-h
+  n_samples_per_image: 1000
+  tiling_size_px: 224
+  tiling_size_um: 50000.0

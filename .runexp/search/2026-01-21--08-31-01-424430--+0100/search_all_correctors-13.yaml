@@ -1,0 +1,9 @@
+base_config:
+  corr_tag: corrector_z-score-corr/vgg_px224_um5000.0_ftrain_n1000
+  ds_dir: /gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+  fold: val
+  model: vgg
+  no_multi_modal: false
+  tile_size_px: 224
+  tile_size_um: 5000.0
+  tiling_mode: overlap

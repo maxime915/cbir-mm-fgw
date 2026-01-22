@@ -1,0 +1,14 @@
+base_config:
+  arch: mlp-eye
+  cyclic: true
+  ds_dir: /gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+  fold: train
+  lr_max: 0.001
+  lr_min: 1.0e-06
+  model: uni-1
+  n_epochs: 200
+  n_samples_per_image: 1000
+  random_pairing: false
+  rec_coef: 0.5
+  tiling_size_px: 224
+  tiling_size_um: 50000.0

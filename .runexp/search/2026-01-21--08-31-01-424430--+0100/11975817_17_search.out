@@ -1,0 +1,105 @@
+----------------- Environment ------------------
+
+Currently Loaded Modules:
+  1) EasyBuild/2022a (S)   2) CUDA/11.7.0
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+------------------- Job info -------------------
+job_id             : 11975817
+jobname            : search
+queue              : gpu
+qos                : gpu
+account            : ariacpg
+submit dir         : /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw
+number of mpi tasks: 1 tasks
+OMP_NUM_THREADS    : 
+number of gpus     : 1
+Executable         : 
+------------------- Node list ------------------
+cna005
+---------------- Checking limits ---------------
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 1028129
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) 62914560
+open files                      (-n) 32768
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 1028129
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+--------------- Running the code ---------------
+This run started on: Wed Jan 21 09:23:19 CET 2026
++ source ./env.sh
+++ export IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+++ IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
++++ cat .env
++++ xargs
+++ export HUGGINGFACE_HUB_TOKEN=**REDACTED**
+++ HUGGINGFACE_HUB_TOKEN=**REDACTED**
++ /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/python3 /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/cbir_mm_fgw_search /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.runexp/search/2026-01-21--08-31-01-424430--+0100/search_all_correctors-17.yaml --runexp-no-dry-run
+starting
+len(pairs_)=11 (c.fold='val')
+using uni-2-h with s_um=50000.0 corr=corrector_z-score-corr/uni-2-h_px224_um50000.0_ftrain_n1000 t_mode=overlap
+===== Warmup =====
+profiler["warmup-first"][0]=18.06577458092943
+{'tiling/coordinates': [0.04983152914792299],
+ 'tiling/embeddings': [2.2187904636375606],
+ 'query/coordinates': [0.3253768887370825],
+ 'query/embeddings': [0.2325424780137837],
+ 'index/creation': [0.0005572224035859108],
+ 'index/search': [0.012791263870894909]}
+warmup-all                    : 2.663e+00 (n=  2)
+warmup-first                  : 1.807e+01 (n=  1)
+Warmed up in 23.782243490219116s
+==== Inspect ====
+prediction               : 1.182e+00 +/- 9.735e-01 tot: 7.093e+00 (n=  6)
+prediction/conversion    : 1.343e-04 +/- 8.373e-05 tot: 8.057e-04 (n=  6)
+prediction/copy-from-gpu : 2.796e-04 +/- 4.911e-04 tot: 1.677e-03 (n=  6)
+prediction/copy-to-gpu   : 6.631e-03 +/- 5.776e-03 tot: 3.979e-02 (n=  6)
+prediction/model         : 5.220e-02 +/- 9.646e-02 tot: 3.132e-01 (n=  6)
+prediction/sync          : 3.786e-01 +/- 3.266e-01 tot: 2.272e+00 (n=  6)
+preprocess-q             : 7.429e-01 +/- 5.932e-01 tot: 4.458e+00 (n=  6)
+preprocess-q/crop-img    : 3.293e-03 +/- 8.832e-04 tot: 2.822e+00 (n=857)
+preprocess-q/read-crop   : 1.427e-03 +/- 5.838e-04 tot: 1.223e+00 (n=857)
+preprocess-q/transform   : 3.780e-04 +/- 7.435e-05 tot: 3.240e-01 (n=857)
+==== Accuracy ====
+Done 11 queries in 34.13226795196533s
+top1,top3,top5,rank-q.95
+0.7561728395061729,0.8888888888888888,0.9382716049382716,7.0
+
+n-fail: 79; n-success: 245; n-all: 324
+mu[fail]: 81132.9797895209 px; s1[fail]: 27509.977524247166 pxmu[success]: 66139.22098566024 px; s1[success]: 33810.27693326215 pxmu[all]: 69795.1066199349 px; s1[all]: 33020.98716138777 px
+,0.0,0.01,0.05,0.1,0.25,0.5,0.75,0.9,0.95,0.99,1.0
+fail,20256.706543759774,26703.7785202974,39349.66821536609,45928.56315880218,65803.06812770499,76277.32187878649,101315.90919877692,117485.24091404404,125617.14221234982,152962.75641392526,154482.25032345948
+success,3726.0983615573004,4726.468584194821,14470.66655245399,21931.62929067806,40384.0812325847,62621.22711189873,91011.06223970799,109803.1863612591,125400.393837748,147270.3982529951,157795.73714140695
+all,3726.0983615573004,5073.485510126431,16523.397930067636,28752.605720172785,43972.32570105947,68713.53466491381,93102.52560734963,112563.47890264868,125421.15402802161,151885.14247597495,157795.73714140695
+
+===== Timing =====
+request                       : 2.455e+00 +/- 2.585e-01 (n= 11)
+==== Inspect ====
+prediction               : 1.128e+00 +/- 8.796e-01 tot: 2.481e+01 (n= 22)
+prediction/conversion    : 1.312e-04 +/- 1.131e-04 tot: 2.886e-03 (n= 22)
+prediction/copy-from-gpu : 6.325e-05 +/- 1.125e-05 tot: 1.392e-03 (n= 22)
+prediction/copy-to-gpu   : 6.030e-03 +/- 4.789e-03 tot: 1.327e-01 (n= 22)
+prediction/model         : 1.249e-02 +/- 5.823e-04 tot: 2.747e-01 (n= 22)
+prediction/sync          : 3.674e-01 +/- 3.035e-01 tot: 8.083e+00 (n= 22)
+preprocess-q             : 7.408e-01 +/- 5.716e-01 tot: 1.630e+01 (n= 22)
+preprocess-q/crop-img    : 3.355e-03 +/- 8.275e-04 tot: 1.031e+01 (n=3074)
+preprocess-q/read-crop   : 1.484e-03 +/- 5.763e-04 tot: 4.561e+00 (n=3074)
+preprocess-q/transform   : 3.642e-04 +/- 7.318e-05 tot: 1.119e+00 (n=3074)
++ res=0
++ echo -n 'This run completed on: '
+This run completed on: + date
+Wed Jan 21 09:24:27 CET 2026
++ exit 0

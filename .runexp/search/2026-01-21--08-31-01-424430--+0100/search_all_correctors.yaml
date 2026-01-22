@@ -1,0 +1,10 @@
+base_config:
+  ds_dir: /gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+  tile_size_px: 224
+  tiling_mode: overlap
+  fold: val
+  no_multi_modal: False
+sweep:
+  - model: [uni-2-h, uni-2-h, uni-1, vgg, uni-1, vgg, vgg, uni-2-h, uni-1, uni-1, uni-2-h, uni-1, uni-2-h, vgg, vgg, vgg, uni-1, uni-2-h]
+    tile_size_um: [50000.0, 5000.0, 10000.0, 5000.0, 5000.0, 10000.0, 50000.0, 10000.0, 50000.0, 10000.0, 5000.0, 50000.0, 10000.0, 5000.0, 10000.0, 50000.0, 5000.0, 50000.0]
+    corr_tag: [corrector_7-gwot-allpix-patches/uni-2-h_px224_um50000.0_20260120-1702-f8870bbb, corrector_7-gwot-allpix-patches/uni-2-h_px224_um5000.0_20260120-1846-bccd3c52, corrector_7-gwot-allpix-patches/uni-1_px224_um10000.0_20260120-1845-42ccc760, corrector_7-gwot-allpix-patches/vgg_px224_um5000.0_20260120-1923-1003b110, corrector_7-gwot-allpix-patches/uni-1_px224_um5000.0_20260120-1905-b1ba9231, corrector_7-gwot-allpix-patches/vgg_px224_um10000.0_20260120-1905-89c119fe, corrector_7-gwot-allpix-patches/vgg_px224_um50000.0_20260120-1858-75485ead, corrector_7-gwot-allpix-patches/uni-2-h_px224_um10000.0_20260120-1732-9af19aa2, corrector_7-gwot-allpix-patches/uni-1_px224_um50000.0_20260120-1835-8e247c6c, corrector_z-score-corr/uni-1_px224_um10000.0_ftrain_n1000, corrector_z-score-corr/uni-2-h_px224_um5000.0_ftrain_n1000, corrector_z-score-corr/uni-1_px224_um50000.0_ftrain_n1000, corrector_z-score-corr/uni-2-h_px224_um10000.0_ftrain_n1000, corrector_z-score-corr/vgg_px224_um5000.0_ftrain_n1000, corrector_z-score-corr/vgg_px224_um10000.0_ftrain_n1000, corrector_z-score-corr/vgg_px224_um50000.0_ftrain_n1000, corrector_z-score-corr/uni-1_px224_um5000.0_ftrain_n1000, corrector_z-score-corr/uni-2-h_px224_um50000.0_ftrain_n1000]
