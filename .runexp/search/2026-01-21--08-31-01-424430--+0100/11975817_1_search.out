@@ -1,0 +1,119 @@
+----------------- Environment ------------------
+
+Currently Loaded Modules:
+  1) EasyBuild/2022a (S)   2) CUDA/11.7.0
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+------------------- Job info -------------------
+job_id             : 11975867
+jobname            : search
+queue              : gpu
+qos                : gpu
+account            : ariacpg
+submit dir         : /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw
+number of mpi tasks: 1 tasks
+OMP_NUM_THREADS    : 
+number of gpus     : 1
+Executable         : 
+------------------- Node list ------------------
+cna044
+---------------- Checking limits ---------------
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 1028129
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) 62914560
+open files                      (-n) 32768
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 1028129
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+--------------- Running the code ---------------
+This run started on: Wed Jan 21 08:50:23 CET 2026
++ source ./env.sh
+++ export IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+++ IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
++++ cat .env
++++ xargs
+++ export HUGGINGFACE_HUB_TOKEN=**REDACTED**
+++ HUGGINGFACE_HUB_TOKEN=**REDACTED**
++ /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/python3 /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/cbir_mm_fgw_search /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.runexp/search/2026-01-21--08-31-01-424430--+0100/search_all_correctors-1.yaml --runexp-no-dry-run
+starting
+len(pairs_)=11 (c.fold='val')
+using uni-2-h with s_um=5000.0 corr=corrector_7-gwot-allpix-patches/uni-2-h_px224_um5000.0_20260120-1846-bccd3c52 t_mode=overlap
+===== Warmup =====
+profiler["warmup-first"][0]=120.9591564447619
+{'tiling/coordinates': [0.5779247749596834],
+ 'tiling/embeddings': [98.3698548860848],
+ 'query/coordinates': [0.3318038792349398],
+ 'query/embeddings': [0.6282769567333162],
+ 'index/creation': [0.08193483389914036],
+ 'index/search': [0.21828839927911758]}
+warmup-all                    : 1.019e+02 (n=  2)
+warmup-first                  : 1.210e+02 (n=  1)
+Warmed up in 326.2965352535248s
+==== Inspect ====
+prediction               : 4.999e+01 +/- 5.428e+01 tot: 3.000e+02 (n=  6)
+prediction/conversion    : 2.410e-02 +/- 2.630e-02 tot: 1.446e-01 (n=  6)
+prediction/copy-from-gpu : 8.557e-04 +/- 1.123e-03 tot: 1.061e-01 (n=124)
+prediction/copy-to-gpu   : 2.322e-02 +/- 2.617e-02 tot: 2.880e+00 (n=124)
+prediction/model         : 1.869e-02 +/- 5.053e-02 tot: 2.318e+00 (n=124)
+prediction/sync          : 5.693e-01 +/- 5.758e-01 tot: 3.416e+00 (n=  6)
+preprocess-q             : 2.387e+00 +/- 3.676e-01 tot: 2.960e+02 (n=124)
+preprocess-q/crop-img    : 3.008e-03 +/- 6.063e-04 tot: 1.857e+02 (n=61730)
+preprocess-q/read-crop   : 1.344e-03 +/- 1.167e-03 tot: 8.299e+01 (n=61730)
+preprocess-q/transform   : 3.200e-04 +/- 9.279e-05 tot: 1.976e+01 (n=61730)
+==== Accuracy ====
+Done 11 queries in 1114.9066824913025s
+top1,top3,top5,rank-q.95
+0.7067901234567902,0.8395061728395061,0.8827160493827161,13.849999999999966
+
+n-fail: 95; n-success: 229; n-all: 324
+mu[fail]: 74528.7303815792 px; s1[fail]: 38703.40886624547 pxmu[success]: 68723.92007127724 px; s1[success]: 34429.75914152244 pxmu[all]: 70425.94778571762 px; s1[all]: 35833.40347217999 px
+,0.0,0.01,0.05,0.1,0.25,0.5,0.75,0.9,0.95,0.99,1.0
+fail,4842.320518098735,10137.18029737853,21778.089608364106,25720.1927367858,42955.762722213214,69759.09836716641,99980.97867255988,131514.16059923908,149340.33101839275,155684.42239826862,163778.8239211651
+success,3576.6706585873962,4988.161329236675,17856.12432394667,26072.000280751323,40996.39356089752,66905.00361706888,90705.72428463376,113156.3590834887,130763.28194650824,155646.4110877027,168239.00866624244
+all,3576.6706585873962,4976.917617641118,18649.561639167758,25621.488890484743,41012.732654156855,67779.52652045917,92567.6837209438,118396.0750307234,137949.69737748613,156420.75389789583,168239.00866624244
+
+===== Timing =====
+request                       : 1.006e+02 +/- 3.123e+00 (n= 11)
+==== Inspect ====
+prediction               : 4.958e+01 +/- 5.028e+01 tot: 1.091e+03 (n= 22)
+prediction/conversion    : 2.408e-02 +/- 2.457e-02 tot: 5.297e-01 (n= 22)
+prediction/copy-from-gpu : 6.901e-05 +/- 1.391e-05 tot: 3.161e-02 (n=458)
+prediction/copy-to-gpu   : 2.787e-02 +/- 5.775e-02 tot: 1.277e+01 (n=458)
+prediction/model         : 1.364e-02 +/- 1.485e-03 tot: 6.246e+00 (n=458)
+prediction/sync          : 3.854e-01 +/- 3.580e-01 tot: 8.480e+00 (n= 22)
+preprocess-q             : 2.353e+00 +/- 3.945e-01 tot: 1.078e+03 (n=458)
+preprocess-q/crop-img    : 2.912e-03 +/- 5.807e-04 tot: 6.595e+02 (n=226500)
+preprocess-q/read-crop   : 1.417e-03 +/- 1.449e-03 tot: 3.210e+02 (n=226500)
+preprocess-q/transform   : 3.261e-04 +/- 9.517e-05 tot: 7.386e+01 (n=226500)
++ res=0
++ echo -n 'This run completed on: '
+This run completed on: + date
+Wed Jan 21 09:14:32 CET 2026
++ exit 0
+
+Resources Used
+
+Total Memory used                        - MEM              : 4.0GiB
+Total CPU Time                           - CPU_Time         : 03:13:20
+Execution Time                           - Wall_Time        : 00:24:10
+total programme cpu time                 - Total_CPU        : 34:53.777
+Total_CPU / CPU_Time  (%)                - ETA              : 18%
+Number of alloc CPU                      - NCPUS            : 8
+Number of Mobilized Resources per Job    - NCPUS_EQUIV_PJOB : 32
+Mobilized Resources x Execution Time     - R_Wall_Time      : 12:53:20
+CPU_Time / R_Wall_Time (%)               - ALPHA            : 25%
+Energy (Joules)                                             : unknown
+

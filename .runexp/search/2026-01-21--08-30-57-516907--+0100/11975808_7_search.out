@@ -1,0 +1,119 @@
+----------------- Environment ------------------
+
+Currently Loaded Modules:
+  1) EasyBuild/2022a (S)   2) CUDA/11.7.0
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+------------------- Job info -------------------
+job_id             : 11975816
+jobname            : search
+queue              : gpu
+qos                : gpu
+account            : ariacpg
+submit dir         : /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw
+number of mpi tasks: 1 tasks
+OMP_NUM_THREADS    : 
+number of gpus     : 1
+Executable         : 
+------------------- Node list ------------------
+cna015
+---------------- Checking limits ---------------
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 1028129
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) 62914560
+open files                      (-n) 32768
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 1028129
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+--------------- Running the code ---------------
+This run started on: Wed Jan 21 08:30:59 CET 2026
++ source ./env.sh
+++ export IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+++ IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
++++ xargs
++++ cat .env
+++ export HUGGINGFACE_HUB_TOKEN=**REDACTED**
+++ HUGGINGFACE_HUB_TOKEN=**REDACTED**
++ /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/python3 /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/cbir_mm_fgw_search /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.runexp/search/2026-01-21--08-30-57-516907--+0100/search_no_corrector-7.yaml --runexp-no-dry-run
+starting
+len(pairs_)=11 (c.fold='val')
+using uni-1 with s_um=50000.0 corr=no-correction t_mode=overlap
+===== Warmup =====
+profiler["warmup-first"][0]=11.193216919898987
+{'tiling/coordinates': [0.22345831291750073],
+ 'tiling/embeddings': [3.8303727339953184],
+ 'query/coordinates': [0.0998996407724917],
+ 'query/embeddings': [0.229468478821218],
+ 'index/creation': [0.012160233221948147],
+ 'index/search': [0.03038599668070674]}
+warmup-all                    : 2.390e+00 (n=  2)
+warmup-first                  : 1.119e+01 (n=  1)
+Warmed up in 16.90942692756653s
+==== Inspect ====
+prediction               : 1.402e+00 +/- 1.412e+00 tot: 8.414e+00 (n=  6)
+prediction/conversion    : 1.350e-04 +/- 1.444e-04 tot: 8.100e-04 (n=  6)
+prediction/copy-from-gpu : 1.009e-04 +/- 4.337e-05 tot: 6.056e-04 (n=  6)
+prediction/copy-to-gpu   : 5.370e-03 +/- 4.134e-03 tot: 3.222e-02 (n=  6)
+prediction/model         : 3.492e-01 +/- 8.149e-01 tot: 2.095e+00 (n=  6)
+prediction/sync          : 1.259e-01 +/- 1.153e-01 tot: 7.557e-01 (n=  6)
+preprocess-q             : 9.207e-01 +/- 7.293e-01 tot: 5.524e+00 (n=  6)
+preprocess-q/crop-img    : 3.792e-03 +/- 1.007e-03 tot: 3.250e+00 (n=857)
+preprocess-q/read-crop   : 1.895e-03 +/- 8.513e-04 tot: 1.624e+00 (n=857)
+preprocess-q/transform   : 5.580e-04 +/- 1.849e-04 tot: 4.782e-01 (n=857)
+==== Accuracy ====
+Done 11 queries in 32.465933084487915s
+top1,top3,top5,rank-q.95
+0.7901234567901234,0.9135802469135802,0.9537037037037037,4.0
+
+n-fail: 68; n-success: 256; n-all: 324
+mu[fail]: 87930.64856288757 px; s1[fail]: 31380.865579689642 pxmu[success]: 67047.45836218982 px; s1[success]: 34989.86836826107 pxmu[all]: 71430.3501327066 px; s1[all]: 35303.508721974365 px
+,0.0,0.01,0.05,0.1,0.25,0.5,0.75,0.9,0.95,0.99,1.0
+fail,22684.764424608864,24358.537470123818,29640.407535939383,48133.06015869489,69112.82093541477,87548.5590788431,106585.15625663445,128621.11482763856,136264.23188580573,160720.93896927842,173387.3674320018
+success,4005.607694220691,4781.782238088775,15633.217516782466,22296.863773506673,39001.92577358663,66216.64838104756,91600.85708810098,111533.0854088571,131446.09276634714,151712.11140706541,162273.74379424416
+all,4005.607694220691,5073.485510126431,16611.665970147566,24546.370907108016,43000.96004307714,71574.39060068403,94676.27490525715,121751.15997788764,132219.94603722467,154407.2949795336,173387.3674320018
+
+===== Timing =====
+request                       : 2.334e+00 +/- 1.979e-01 (n= 11)
+==== Inspect ====
+prediction               : 1.017e+00 +/- 7.733e-01 tot: 2.237e+01 (n= 22)
+prediction/conversion    : 1.208e-04 +/- 1.383e-04 tot: 2.657e-03 (n= 22)
+prediction/copy-from-gpu : 6.887e-05 +/- 1.198e-05 tot: 1.515e-03 (n= 22)
+prediction/copy-to-gpu   : 5.296e-03 +/- 4.071e-03 tot: 1.165e-01 (n= 22)
+prediction/model         : 1.734e-02 +/- 2.419e-02 tot: 3.814e-01 (n= 22)
+prediction/sync          : 1.249e-01 +/- 1.092e-01 tot: 2.748e+00 (n= 22)
+preprocess-q             : 8.686e-01 +/- 6.654e-01 tot: 1.911e+01 (n= 22)
+preprocess-q/crop-img    : 3.550e-03 +/- 9.135e-04 tot: 1.091e+01 (n=3074)
+preprocess-q/read-crop   : 1.945e-03 +/- 8.836e-04 tot: 5.979e+00 (n=3074)
+preprocess-q/transform   : 5.742e-04 +/- 1.643e-04 tot: 1.765e+00 (n=3074)
++ res=0
++ echo -n 'This run completed on: '
+This run completed on: + date
+Wed Jan 21 08:32:25 CET 2026
++ exit 0
+
+Resources Used
+
+Total Memory used                        - MEM              : 2.1GiB
+Total CPU Time                           - CPU_Time         : 00:11:36
+Execution Time                           - Wall_Time        : 00:01:27
+total programme cpu time                 - Total_CPU        : 00:58.321
+Total_CPU / CPU_Time  (%)                - ETA              : 8%
+Number of alloc CPU                      - NCPUS            : 8
+Number of Mobilized Resources per Job    - NCPUS_EQUIV_PJOB : 32
+Mobilized Resources x Execution Time     - R_Wall_Time      : 00:46:24
+CPU_Time / R_Wall_Time (%)               - ALPHA            : 25%
+Energy (Joules)                                             : unknown
+

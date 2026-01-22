@@ -1,0 +1,119 @@
+----------------- Environment ------------------
+
+Currently Loaded Modules:
+  1) EasyBuild/2022a (S)   2) CUDA/11.7.0
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+------------------- Job info -------------------
+job_id             : 11975810
+jobname            : search
+queue              : gpu
+qos                : gpu
+account            : ariacpg
+submit dir         : /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw
+number of mpi tasks: 1 tasks
+OMP_NUM_THREADS    : 
+number of gpus     : 1
+Executable         : 
+------------------- Node list ------------------
+cna045
+---------------- Checking limits ---------------
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) unlimited
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 1028129
+max locked memory       (kbytes, -l) unlimited
+max memory size         (kbytes, -m) 62914560
+open files                      (-n) 32768
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 1028129
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+--------------- Running the code ---------------
+This run started on: Wed Jan 21 08:30:59 CET 2026
++ source ./env.sh
+++ export IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+++ IMG_DIR=/gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
++++ cat .env
++++ xargs
+++ export HUGGINGFACE_HUB_TOKEN=**REDACTED**
+++ HUGGINGFACE_HUB_TOKEN=**REDACTED**
++ /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/python3 /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.venv/bin/cbir_mm_fgw_search /gpfs/home/acad/ulg-sysmod/mamodei/repos/cbir-mm-fgw/.runexp/search/2026-01-21--08-30-57-516907--+0100/search_no_corrector-1.yaml --runexp-no-dry-run
+starting
+len(pairs_)=11 (c.fold='val')
+using uni-2-h with s_um=50000.0 corr=no-correction t_mode=overlap
+===== Warmup =====
+profiler["warmup-first"][0]=13.719299573916942
+{'tiling/coordinates': [0.063629861921072],
+ 'tiling/embeddings': [2.6777217988856137],
+ 'query/coordinates': [0.15242279088124633],
+ 'query/embeddings': [0.2245640247128904],
+ 'index/creation': [0.00044058216735720634],
+ 'index/search': [0.018254695925861597]}
+warmup-all                    : 2.643e+00 (n=  2)
+warmup-first                  : 1.372e+01 (n=  1)
+Warmed up in 19.95685315132141s
+==== Inspect ====
+prediction               : 1.257e+00 +/- 1.096e+00 tot: 7.542e+00 (n=  6)
+prediction/conversion    : 1.067e-04 +/- 6.189e-05 tot: 6.403e-04 (n=  6)
+prediction/copy-from-gpu : 2.653e-04 +/- 4.673e-04 tot: 1.592e-03 (n=  6)
+prediction/copy-to-gpu   : 6.600e-03 +/- 5.541e-03 tot: 3.960e-02 (n=  6)
+prediction/model         : 1.333e-01 +/- 2.962e-01 tot: 7.995e-01 (n=  6)
+prediction/sync          : 3.799e-01 +/- 3.279e-01 tot: 2.279e+00 (n=  6)
+preprocess-q             : 7.362e-01 +/- 6.032e-01 tot: 4.417e+00 (n=  6)
+preprocess-q/crop-img    : 3.270e-03 +/- 8.531e-04 tot: 2.803e+00 (n=857)
+preprocess-q/read-crop   : 1.398e-03 +/- 5.235e-04 tot: 1.198e+00 (n=857)
+preprocess-q/transform   : 3.729e-04 +/- 9.167e-05 tot: 3.196e-01 (n=857)
+==== Accuracy ====
+Done 11 queries in 33.10341191291809s
+top1,top3,top5,rank-q.95
+0.6666666666666666,0.8395061728395061,0.904320987654321,10.0
+
+n-fail: 108; n-success: 216; n-all: 324
+mu[fail]: 79068.40793840373 px; s1[fail]: 28752.199827965927 pxmu[success]: 64335.24766074442 px; s1[success]: 33816.19989964723 pxmu[all]: 69246.30108663086 px; s1[all]: 32956.89316245567 px
+,0.0,0.01,0.05,0.1,0.25,0.5,0.75,0.9,0.95,0.99,1.0
+fail,19719.941810258973,20426.67059541921,34407.101915802625,40133.29835252031,59465.05142033329,76755.7257742639,101006.38175002976,116190.86147095656,125110.6063000278,142682.3288993467,154482.25032345948
+success,3726.0983615573004,4690.098252104251,13953.629199066787,20261.48360952141,38029.319161805804,62568.49408877733,87943.23520043047,108547.29410769648,121965.57038017783,148740.89705839858,157795.73714140695
+all,3726.0983615573004,5073.485510126431,17718.221947207723,26486.883961172476,42863.16221178736,68713.53466491381,91736.47416869322,112301.3640674847,123254.97496249127,148308.8505269521,157795.73714140695
+
+===== Timing =====
+request                       : 2.669e+00 +/- 2.545e-01 (n= 11)
+==== Inspect ====
+prediction               : 1.130e+00 +/- 8.759e-01 tot: 2.485e+01 (n= 22)
+prediction/conversion    : 1.027e-04 +/- 5.293e-05 tot: 2.260e-03 (n= 22)
+prediction/copy-from-gpu : 6.130e-05 +/- 7.023e-06 tot: 1.349e-03 (n= 22)
+prediction/copy-to-gpu   : 6.502e-03 +/- 5.236e-03 tot: 1.430e-01 (n= 22)
+prediction/model         : 1.228e-02 +/- 5.962e-04 tot: 2.702e-01 (n= 22)
+prediction/sync          : 3.730e-01 +/- 3.087e-01 tot: 8.207e+00 (n= 22)
+preprocess-q             : 7.370e-01 +/- 5.635e-01 tot: 1.621e+01 (n= 22)
+preprocess-q/crop-img    : 3.300e-03 +/- 3.565e-03 tot: 1.014e+01 (n=3074)
+preprocess-q/read-crop   : 1.468e-03 +/- 5.600e-04 tot: 4.513e+00 (n=3074)
+preprocess-q/transform   : 3.934e-04 +/- 6.728e-05 tot: 1.209e+00 (n=3074)
++ res=0
++ echo -n 'This run completed on: '
+This run completed on: + date
+Wed Jan 21 08:32:26 CET 2026
++ exit 0
+
+Resources Used
+
+Total Memory used                        - MEM              : 1.7GiB
+Total CPU Time                           - CPU_Time         : 00:11:44
+Execution Time                           - Wall_Time        : 00:01:28
+total programme cpu time                 - Total_CPU        : 01:04.569
+Total_CPU / CPU_Time  (%)                - ETA              : 9%
+Number of alloc CPU                      - NCPUS            : 8
+Number of Mobilized Resources per Job    - NCPUS_EQUIV_PJOB : 32
+Mobilized Resources x Execution Time     - R_Wall_Time      : 00:46:56
+CPU_Time / R_Wall_Time (%)               - ALPHA            : 25%
+Energy (Joules)                                             : unknown
+

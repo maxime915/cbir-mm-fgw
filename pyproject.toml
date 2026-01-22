@@ -1,0 +1,61 @@
+[project]
+name = "cbir-mm-fgw"
+version = "0.1.0"
+authors = [{ name = "Maxime Amodei", email = "maxime.amodei@uliege.be" }]
+maintainers = [{ name = "Maxime Amodei", email = "maxime.amodei@uliege.be" }]
+description = "Implementation of 'Optimal Transport With Foundation Models for Multi-Stain CBIR in Digital Pathology' from ISBI2026"
+readme = "README.md"
+requires-python = ">=3.13.2"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+]
+dependencies = [
+    "datasets>=3.6.0",
+    "faiss-cpu==1.11.0",
+    "fastapi==0.115.12",
+    "geojson==3.2.0",
+    "h5py==3.14.0",
+    "matplotlib==3.10.1",
+    "numba>=0.61.2",
+    "numpy==2.1.2",
+    "pandas==2.2.3",
+    "pot>=0.9.5",
+    "protobuf>=6.31.1",
+    "pydantic==2.11.4",
+    "pyvips[binary]>=3.0.0",
+    "runexp>=0.1.4",
+    "scikit-image==0.25.2",
+    "scikit-learn==1.6.1",
+    "timm==1.0.15",
+    "torch~=2.7.0",
+    "torchvision~=0.22.0",
+    "transformers>=4.53.1",
+    "uvicorn==0.34.2",
+    "wandb>=0.21.3",
+    "zarr>=3.0.8",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/maxime915/cbir-mm-fgw"
+"Bug Tracker" = "https://github.com/maxiime915/cbir-mm-fgw/issues"
+
+[project.scripts]
+cbir_mm_fgw_assess_rot_disp = "cbir_mm_fgw.run.assess_rot_disp:main"
+cbir_mm_fgw_eval_ot_mapping = "cbir_mm_fgw.run.eval_ot_mapping:main"
+cbir_mm_fgw_search = "cbir_mm_fgw.run.search:main"
+cbir_mm_fgw_train_fgw = "cbir_mm_fgw.run.train_fgw:main"
+cbir_mm_fgw_train_zscore_corr = "cbir_mm_fgw.run.train_zscore_corr:main"
+cbir_mm_fgw_setup_model_cache = "cbir_mm_fgw.run.setup_model_cache:main"
+
+[tool.hatch.build]
+exclude = ["/.vscode", "/.gitignore"]
+
+[dependency-groups]
+dev = ["ipykernel>=6.29.5", "pip>=25.1.1"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
