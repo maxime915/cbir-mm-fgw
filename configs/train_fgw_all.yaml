@@ -11,7 +11,7 @@ base_config:
   arch: mlp-eye
   rec_coef: 5.0e-1
 sweep:
-  - model: [uni-2-h, uni-1, gigapath, h-optimus-0, virchow]
+  - model: [uni-2-h, uni-1, vgg]
   - tiling_size_um:
     - 50000.0
     - 10000.0
