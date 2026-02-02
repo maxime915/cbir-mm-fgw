@@ -1,0 +1,14 @@
+base_config:
+  ds_dir: /gpfs/projects/acad/ariacpg/mamodei/datasets/hyreco/additional
+  tiling_size_px: 224
+  fold: val
+  seed: 0
+  n_samples_per_image: 1000
+  no_multi_modal: false
+  fot_coef: 0.5
+sweep:
+  - model: [uni-1, uni-2-h, vgg]
+  - tiling_size_um:
+    - 500.0
+    - 1000.0
+    - 5000.0
