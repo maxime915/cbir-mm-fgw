@@ -19,7 +19,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from cbir_mm_fgw.hyreco import read_additional
 from cbir_mm_fgw.models import ot_transfer as m
 from cbir_mm_fgw.mrvips import MRImage
-from cbir_mm_fgw.pipeline import get_pipeline
+from cbir_mm_fgw.pipeline import get_pipeline, model_directory
 from cbir_mm_fgw.server_api import _match
 from cbir_mm_fgw.tiling import _resize, make_patches, make_tiles
 
@@ -232,9 +232,7 @@ def main(c: Config):
     run_tag = f"{c.model}_px{c.tiling_size_px}_um{c.tiling_size_um}_{key}"
     if c.random_pairing:
         run_tag += "_rndpaired"
-    save_dir = (
-        pathlib.Path("models-cache") / "corrector_7-gwot-allpix-patches" / run_tag
-    )
+    save_dir = model_directory() / "corrector_7-gwot-allpix-patches" / run_tag
     save_dir.parent.mkdir(exist_ok=True, parents=False)  # models-cache must exist
     save_dir.mkdir(exist_ok=True, parents=False)
 

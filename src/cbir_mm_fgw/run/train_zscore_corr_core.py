@@ -1,10 +1,13 @@
+import json
+import uuid
 import pathlib
+from datetime import datetime
 
 import numpy as np
 
 from cbir_mm_fgw.hyreco import read_additional
 from cbir_mm_fgw.mrvips import MRImage
-from cbir_mm_fgw.pipeline import Modality, get_pipeline
+from cbir_mm_fgw.pipeline import Modality, get_pipeline, model_directory
 from cbir_mm_fgw.tiling import _resize, make_patches
 
 from .train_zscore_corr import Config
@@ -37,7 +40,6 @@ def save_stats(batches_: list[np.ndarray], p: pathlib.Path, mod: Modality):
     np.save(p / f"{mod}-s1.npy", s1)
 
 
-
 def main(c: Config):
     if not pathlib.Path(c.ds_dir).is_dir():
         raise FileNotFoundError(f"{c.ds_dir!r} is not a directory")
@@ -56,10 +58,14 @@ def main(c: Config):
     del tr_offset, vl_offset, c.ds_dir, all_pairs
 
     pipeline, _ = get_pipeline(c.model, "queue")
-    run_tag = f"{c.model}_px{c.tiling_size_px}_um{c.tiling_size_um}_f{c.fold}_n{c.n_samples_per_image}"
-    save_dir = pathlib.Path("models-cache") / "corrector_z-score-corr" / run_tag
+
+    key = datetime.now().strftime("%Y%m%d-%H%M") + f"-{uuid.uuid4().hex[:8]}"
+    run_tag = f"{c.model}_px{c.tiling_size_px}_um{c.tiling_size_um}_{key}"
+    save_dir = model_directory() / "corrector_z-score-corr" / run_tag
     save_dir.parent.mkdir(exist_ok=True, parents=False)  # models-cache must exist
     save_dir.mkdir(exist_ok=True, parents=False)
+
+    (save_dir / "config.json").write_text(json.dumps(c.model_dump(), indent=2))
 
     embeddings_he: list[np.ndarray] = []
     embeddings_phh3: list[np.ndarray] = []
@@ -93,7 +99,6 @@ def main(c: Config):
             allow_overflow=False,
         )
         embeddings_phh3.append(pipeline(patches_phh3))
-
 
     save_stats(embeddings_he, save_dir, "HE")
     save_stats(embeddings_phh3, save_dir, "PHH3")
