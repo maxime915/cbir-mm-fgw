@@ -22,7 +22,9 @@ def _resolution_px_per_um(img: MRImage):
     if not isinstance(res_x, float):
         raise TypeError(f"{res_x=!r} should be a float")
 
-    pixels_per_microns = res_x * 1e-4
+    # NOTE res_x is actually in px/mm and not in px/cm
+    # so it's 1e-3 and not 1e-4 as one would have expected.
+    pixels_per_microns = res_x * 1e-3
     return pixels_per_microns
 
 
