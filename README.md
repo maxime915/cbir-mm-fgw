@@ -111,11 +111,15 @@ We attempted to implement the foundation models in a reproducible way, such that
 > This section will be updated after the conference proceedings are published.
 
 ```bibtex
-@inproceedings{cbir_mm_fgw_2026,
-  title     = {Optimal Transport With Foundation Models for Multi-Stain CBIR in Digital Pathology},
-  author    = {Maxime Amodei and Raphaël Marée and Pierre Geurts},
-  booktitle = {Proceedings of the IEEE International Symposium on Biomedical Imaging (ISBI)},
-  year      = {2026},
-  note      = {Accepted for publication}
+@inproceedings{ORBi-ed4851a5-1a40-4a2a-9a86-9d093f1217a5,
+	AUTHOR = {Amodei, Maxime and Marée, Raphaël and Geurts, Pierre},
+	EPRINT = {https://orbi.uliege.be/handle/2268/340948},
+	EPRINTTYPE = {hdl},
+	TITLE = {Optimal Transport with Foundation Models for Multi-Stain CBIR in Digital Pathology},
+	LANGUAGE = {English},
+	YEAR = {2026},
+	SIZE = {5},
+	LOCATION = {London, United Kingdom},
+	ABSTRACT = {Combining multiple staining in histopathology is vital to relate complementary information within a tissue. We present a novel framework that enables local correspondence in the form of patch retrieval (CBIR) in multi-stain whole-slide images without the need for explicit registration. By leveraging foundation models as meaningful patch encoders, we are able to retrieve an H&E patch in a dataset of patches extracted from IHC slides. Using Fused Gromov-Wasserstein optimal transport for weak supervision, we learn a lightweight correction module that aligns embeddings and improves retrieval accuracy by up to 30% (depending on patch size and model), at negligible cost, despite staining and structural variations. Our method paves the way for efficient multi-stain integration in digital pathology workflows.}
 }
 ```
