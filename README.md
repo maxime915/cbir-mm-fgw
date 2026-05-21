@@ -107,8 +107,22 @@ We attempted to implement the foundation models in a reproducible way, such that
 
 ## Using and citing CBIR MM FGW
 
-> [!NOTE]
-> This section will be updated after the conference proceedings are published.
+Please, cite the following article if you use our work in you research.
+
+```bibtex
+@INPROCEEDINGS{11515508,
+  author={Amodei, Maxime and Marée, Raphaël and Geurts, Pierre},
+  booktitle={2026 IEEE 23rd International Symposium on Biomedical Imaging (ISBI)}, 
+  title={Optimal Transport with Foundation Models for Multi-Stain CBIR in Digital Pathology}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1-5},
+  keywords={Modeling;Printing;Accuracy;Foundation models;Tiles;Learning (artificial intelligence);Histopathology;Pathology;Training;Modules (abstract algebra);CBIR;histopathology;multi-stain;IHC;annotations;deep learning},
+  doi={10.1109/ISBI61048.2026.11515508}}
+```
+
+Old bibtex.
 
 ```bibtex
 @inproceedings{ORBi-ed4851a5-1a40-4a2a-9a86-9d093f1217a5,
